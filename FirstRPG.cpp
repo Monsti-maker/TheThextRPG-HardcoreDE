@@ -7,8 +7,26 @@
 //============================================================================
 
 #include <iostream>
-#include <windows.h>
 using namespace std;
+
+int gegnerLP;
+int gegnerSchaden;
+int coins = 0;
+int intInput;
+int playerLVL = 1;
+int roll;
+int waffeInfo;
+int rolleSchaden;
+int playerLP;
+int playerLPmax;
+int playerExp = 0;
+bool isRoll = false;
+bool death = false;
+string rolle;
+string waffe;
+string input;
+string name;
+string gegner = "";
 
 void clear(){
 	for(int i = 0; i<200; i++){
@@ -16,21 +34,30 @@ void clear(){
 	}
 }
 
+void kampf(){
+	while(gegnerLP > 1){
+		if(playerLP < 1){
+			cout << "Du bist Gestorben..." << endl;
+			system("pause");
+			while(death == true){
+				cout << "Verlasse das spiel!" << endl;
+				cin >> input;
+			}
+		}
+		system("pause");
+		cout << "Du greifst an" << endl;
+		gegnerLP = gegnerLP - waffeInfo - rolleSchaden;
+		playerLP = playerLP - gegnerSchaden;
+		system("pause");
+		cout << "Die/Der/Das " << gegner << " hat " << gegnerSchaden << " Schaden gemacht." << endl;
+		cout << "Dein LP: " << playerLP << ", Gegner LP:" << gegnerLP << endl;
+	}
+	cout << "Du hast denn Kampf überstanden" << endl;
+}
+
 int main() {
 
-	int playerLVL = 1;
-	int roll;
-	int waffeInfo;
-	int rolleSchaden;
-	int playerLP;
-	int playerLPmax;
-	int playerExp = 0;
-	bool isRoll = false;
-	bool death = false;
-	string rolle;
-	string waffe;
-	string input;
-	string name;
+
 
 	cout << "!!!DIESES SPIEL WIRD NICHT GESPEICHERT!!!" << endl; //=======================Start
 
@@ -52,7 +79,7 @@ int main() {
 	while(isRoll == false){
 		cout << "1.Ritter:Sie machen mehr Schaden mit Schwertern und sie haben viel LP." << endl;
 		cout << "2.Ninja:Sie machen mehr Schaden mit Dolchen und mit Wurfsternen und sie haben Normal viel LP." << endl;
-		cout << "3.Bogenschütze:Sie machen mehr Schaden mit Bögen , Steinschleuder und mit Armbrüsten und sie haben Normal viel LP." << endl;
+		cout << "3.Bogenschütze:Sie machen mehr Schaden mit Bögen , Schleudern und mit Armbrüsten und sie haben Normal viel LP." << endl;
 		cout << "4.Magier:Sie machen mehr Schaden mit Zaubersprüchen und sie haben wenig LP." << endl;
 		cout << "5.Adliger:Sie machen mehr Schaden mit Helfern und sie haben Normal LP." << endl;
 		cin >> roll;
@@ -78,7 +105,7 @@ int main() {
 			break;
 		case 3:
 			rolle = "Bogenschütze";
-			waffe = "Holz Bogen [3 Schaden]";
+			waffe = "Holzschleuder [3 Schaden]";
 			waffeInfo = 3;
 			rolleSchaden = 3;
 			playerLP = 20;
@@ -96,7 +123,7 @@ int main() {
 			break;
 		case 5:
 			rolle = "Adliger";
-			waffe = "Horn der Sklaven [3 Schaden]";
+			waffe = "LVL 1 Horn der Sklaven [3 Schaden]";
 			waffeInfo = 3;
 			rolleSchaden = 3;
 			playerLP = 20;
@@ -145,31 +172,13 @@ int main() {
 	}
 
 	cout << "Du triffst auf eine Horde Zombies" << endl << "Kampf!!!" << endl;//=======ErsterKampf
-
 	string gegner = "Zombie Horde";
 	int gegnerLP = 20;
 	int gegnerSchaden = 4;
-
-	while(gegnerLP > 1){
-		if(playerLP < 1){
-			cout << "Du bist Gestorben..." << endl;
-			system("pause");
-			while(death == true){
-				cout << "Verlasse das spiel!" << endl;
-				cin >> input;
-			}
-		}
-		system("pause");
-		cout << "Du greifst an" << endl;
-		gegnerLP = gegnerLP - waffeInfo - rolleSchaden;
-		playerLP = playerLP - gegnerSchaden;
-		system("pause");
-		cout << "Die/Der/Das " << gegner << " hat " << gegnerSchaden << " Schaden gemacht." << endl;
-		cout << "Dein LP: " << playerLP << ", Gegner LP:" << gegnerLP << endl;
-	}
-	cout << "Du hast denn Kampf überstanden" << endl;
+	kampf();
 
 	playerExp = playerExp + 4;
+	coins = coins +10;
 
 	if(playerExp > 30){
 		playerExp = playerExp -30;
@@ -177,7 +186,8 @@ int main() {
 		playerLVL = playerLVL + 1;
 		cout << "!!!Levle Up!!!" << endl << "Levle: " << playerLVL << endl << "Max LP ist jetzt " << playerLPmax << endl;
 	}
-	cout << "Du hast " << playerExp << "Exp" << endl;
+	cout << "Du hast " << playerExp << " Exp" << endl;
+	cout << "Du hast " << coins << " Münzen" << endl;
 	playerLP = playerLPmax;
 	system("pause");
 
@@ -206,6 +216,235 @@ int main() {
 	cout << "I                                I" << endl;
 	cout << "I               Du               I" << endl;
 	cout << "I________________________________I" << endl;
+
+	isQuest = false;
+	while(isQuest == false){
+		cin >> intInput;
+		switch(intInput){
+		case 1:
+			cout << "Ein gigant ist auf dich getreten. . ." << endl;
+			system("pause");
+			cout << "Du bist gestorben. . ." << endl;
+			while(death == true){
+				cout << "Verlasse das spiel!" << endl;
+				cin >> input;
+				}
+			break;
+		case 2:
+			coins = coins +15;
+			cout << "Du hast " << coins << " Münzen" << endl;
+			cout << "Du hast ein Zauberbuch mit einem Eisstachel Zauber [5 Schaden]" << endl;
+			isQuest = true;
+			break;
+		default:
+			cout << "Gebe 1 oder 2 ein" << endl;
+		}
+	}
+
+	cout << "Nimmst du es?(j/n)" << "Deine alte Waffe: " << waffe << endl;
+	cin >> input;
+	if(input == "j"){
+		switch(roll){
+		case 1:
+			waffe = "Eisstachel Zauber [5 Schaden]";
+			waffeInfo = 5;
+			rolleSchaden = 0;
+			break;
+		case 2:
+			waffe = "Eisstachel Zauber [5 Schaden]";
+			waffeInfo = 5;
+			rolleSchaden = 0;
+			break;
+		case 3:
+			waffe = "Eisstachel Zauber [5 Schaden]";
+			waffeInfo = 5;
+			rolleSchaden = 0;
+			break;
+		case 4:
+			waffe = "Eisstachel Zauber [5 Schaden]";
+			waffeInfo = 5;
+			rolleSchaden = 3;
+			break;
+		case 5:
+			waffe = "Eisstachel Zauber [5 Schaden]";
+			waffeInfo = 5;
+			rolleSchaden = 0;
+			break;
+		}
+	}
+	else{
+		cout << "Dann eben nicht." << endl;
+	}
+
+	cout << "Du gehst nach süden zum Dorf." << endl;
+	cout << "Sam: Hast du den Schatz gefunden, in der Krypta?" << endl;
+	system("pause");
+	cout << "Ich: Ja habe ich." << endl;
+	cout <<"!!!-----QUEST ABGESCHLOSSEN-----!!!" << endl;
+	cout << "Sam: Gehe jetzt zu Max, er arbeitet beim 'ALL ITEMS SHOP'" << endl;
+	system("pause");
+
+	clear();
+
+	cout << "Max: Hallo " << name << ", dass sind meine Waren:" << endl;
+	cout << "1.Kohle Schwert [5 Schaden][10 Münzen]" << endl;
+	cout << "2.Kohle Dolch [5 Schaden][10 Münzen]" << endl;
+	cout << "3.Kohleschleuder [5 Schaden][10 Münzen]" << endl;
+	cout << "4.LVL 2 Horn der Sklaven [5 Schaden][10 Münzen]" << endl;
+	cout << "Gebe die zahl ein um es zu kaufen und eine andere um nichts zu kaufen" << endl;
+	cout << "Deine alte Waffe: " << waffe << endl;
+	cin >> intInput;
+
+	switch(intInput){
+	case 1: //---------------------------------------------------- case 1
+		if(coins >= 10){
+			coins = coins - 10;
+			switch(roll){
+			case 1:
+				waffe = "Kohle Schwert [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 3;
+				break;
+			case 2:
+				waffe = "Kohle Schwert [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			case 3:
+				waffe = "Kohle Schwert [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			case 4:
+				waffe = "Kohle Schwert [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			case 5:
+				waffe = "Kohle Schwert [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			}
+		}
+		else{
+			cout << "---DU HAST NICHT GENUG GELD---" << endl;
+		}
+		break;
+	case 2: //---------------------------------------------------- case 2
+		if(coins >= 10){
+			coins = coins - 10;
+			switch(roll){
+			case 1:
+				waffe = "Kohle Dolch [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			case 2:
+				waffe = "Kohle Dolch [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 3;
+				break;
+			case 3:
+				waffe = "Kohle Dolch [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			case 4:
+				waffe = "Kohle Dolch [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			case 5:
+				waffe = "Kohle Dolch [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			}
+		}
+		else{
+			cout << "---DU HAST NICHT GENUG GELD---" << endl;
+		}
+		break;
+	case 3: //---------------------------------------------------- case 3
+		if(coins >= 10){
+			coins = coins - 10;
+			switch(roll){
+			case 1:
+				waffe = "Kohleschleuder [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			case 2:
+				waffe = "Kohleschleuder [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			case 3:
+				waffe = "Kohleschleuder [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 3;
+				break;
+			case 4:
+				waffe = "Kohleschleuder [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			case 5:
+				waffe = "Kohleschleuder [5 Schaden]";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			}
+		}
+		else{
+			cout << "---DU HAST NICHT GENUG GELD---" << endl;
+		}
+		break;
+	case 4: //---------------------------------------------------- case 4
+		if(coins >= 10){
+			coins = coins - 10;
+			switch(roll){
+			case 1:
+				waffe = "LVL 2 Horn der Sklaven";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			case 2:
+				waffe = "LVL 2 Horn der Sklaven";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			case 3:
+				waffe = "LVL 2 Horn der Sklaven";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			case 4:
+				waffe = "LVL 2 Horn der Sklaven";
+				waffeInfo = 5;
+				rolleSchaden = 0;
+				break;
+			case 5:
+				waffe = "LVL 2 Horn der Sklaven";
+				waffeInfo = 5;
+				rolleSchaden = 3;
+				break;
+			}
+		}
+		else{
+			cout << "---DU HAST NICHT GENUG GELD---" << endl;
+		}
+		break;
+	}
+
+	cout << "Du hast noch " << coins << " Münzen" << endl;
+	cout << "Max: Danke für euer einkauf." << endl;
+	cout << "Max: Sam meinte ihr solltet nach Nord-West gehen bis zum Schloss" << endl;
+
+	system("pause");
+
+	clear();
 
 	return 0;
 }
