@@ -296,7 +296,7 @@ int main() {
 
 	cout << "Du hast " << coins << " Münzen." << endl;
 
-	cout << "1.Kohle Schwert [5 Schaden][10 Münzen]" << endl;
+	cout << "1.Kohle Schwert [4 Schaden][10 Münzen]" << endl;
 	cout << "2.Kohle Dolch [5 Schaden][10 Münzen]" << endl;
 	cout << "3.Kohleschleuder [5 Schaden][10 Münzen]" << endl;
 	cout << "4.LVL 2 Horn der Sklaven [5 Schaden][10 Münzen]" << endl;
@@ -315,23 +315,23 @@ int main() {
 				rolleSchaden = 3;
 				break;
 			case 2:
-				waffe = "Kohle Schwert [5 Schaden]";
-				waffeInfo = 5;
+				waffe = "Kohle Schwert [4 Schaden]";
+				waffeInfo = 4;
 				rolleSchaden = 0;
 				break;
 			case 3:
-				waffe = "Kohle Schwert [5 Schaden]";
-				waffeInfo = 5;
+				waffe = "Kohle Schwert [4 Schaden]";
+				waffeInfo = 4;
 				rolleSchaden = 0;
 				break;
 			case 4:
-				waffe = "Kohle Schwert [5 Schaden]";
-				waffeInfo = 5;
+				waffe = "Kohle Schwert [4 Schaden]";
+				waffeInfo = 4;
 				rolleSchaden = 0;
 				break;
 			case 5:
-				waffe = "Kohle Schwert [5 Schaden]";
-				waffeInfo = 5;
+				waffe = "Kohle Schwert [4 Schaden]";
+				waffeInfo = 4;
 				rolleSchaden = 0;
 				break;
 			}
