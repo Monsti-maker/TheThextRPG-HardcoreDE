@@ -7,26 +7,17 @@
 //============================================================================
 
 #include <iostream>
+
+#include "variabeln.h"
+
 using namespace std;
 
-int gegnerLP;
-int gegnerSchaden;
-int coins = 0;
-int intInput;
-int playerLVL = 1;
-int roll;
-int waffeInfo;
-int rolleSchaden;
-int playerLP;
-int playerLPmax;
-int playerExp = 0;
-bool isRoll = false;
-bool death = false;
 string rolle;
 string waffe;
 string input;
 string name;
 string gegner = "";
+
 
 void clear(){
 	for(int i = 0; i<200; i++){
@@ -55,17 +46,28 @@ void kampf(){
 	cout << "Du hast denn Kampf überstanden" << endl;
 }
 
+int exp(){
+	if(playerExp >= maxexp){
+		playerExp = playerExp -30;
+		playerLPmax = playerLPmax + 3;
+		playerLVL = playerLVL + 1;
+		maxexp = maxexp + 5;
+		cout << "!!!Levle Up!!!" << endl << "Levle: " << playerLVL << endl << "Max LP ist jetzt " << playerLPmax << endl;
+	}
+	return playerLPmax, playerLVL, maxexp, playerExp;
+}
+
 int main() {
 
 
 
 	cout << "!!!DIESES SPIEL WIRD NICHT GESPEICHERT!!!" << endl; //=======================Start
-	cout << "████████╗██╗  ██╗███████╗████████╗███████╗██╗  ██╗████████╗██████╗ ██████╗  ██████╗       ██╗  ██╗ █████╗ ██████╗ ██████╗  ██████╗ ██████╗ ██████╗ ███████╗██████╗ ███████╗" << endl;
-	cout << "╚══██╔══╝██║  ██║██╔════╝╚══██╔══╝██╔════╝╚██╗██╔╝╚══██╔══╝██╔══██╗██╔══██╗██╔════╝       ██║  ██║██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔═══██╗██╔══██╗██╔════╝██╔══██╗██╔════╝" << endl;
-	cout << "   ██║   ███████║█████╗     ██║   █████╗   ╚███╔╝    ██║   ██████╔╝██████╔╝██║  ███╗█████╗███████║███████║██████╔╝██║  ██║██║     ██║   ██║██████╔╝█████╗  ██║  ██║█████╗  " << endl;
-	cout << "   ██║   ██╔══██║██╔══╝     ██║   ██╔══╝   ██╔██╗    ██║   ██╔══██╗██╔═══╝ ██║   ██║╚════╝██╔══██║██╔══██║██╔══██╗██║  ██║██║     ██║   ██║██╔══██╗██╔══╝  ██║  ██║██╔══╝  " << endl;
-	cout << "   ██║   ██║  ██║███████╗   ██║   ███████╗██╔╝ ██╗   ██║   ██║  ██║██║     ╚██████╔╝      ██║  ██║██║  ██║██║  ██║██████╔╝╚██████╗╚██████╔╝██║  ██║███████╗██████╔╝███████╗" << endl;
-	cout << "   ╚═╝   ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝      ╚═════╝       ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═════╝ ╚══════╝" << endl;
+	cout << "████████╗██╗  ██╗███████╗████████╗███████╗██╗  ██╗████████╗██████╗ ██████╗  ██████╗       ██╗  ██╗ █████╗ ██████╗ ██████╗  ██████╗ ██████╗ ██████╗ ███████╗      ██████╗ ███████╗" << endl;
+	cout << "╚══██╔══╝██║  ██║██╔════╝╚══██╔══╝██╔════╝╚██╗██╔╝╚══██╔══╝██╔══██╗██╔══██╗██╔════╝       ██║  ██║██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔═══██╗██╔══██╗██╔════╝      ██╔══██╗██╔════╝" << endl;
+	cout << "   ██║   ███████║█████╗     ██║   █████╗   ╚███╔╝    ██║   ██████╔╝██████╔╝██║  ███╗█████╗███████║███████║██████╔╝██║  ██║██║     ██║   ██║██████╔╝█████╗ █████  ██║  ██║█████╗  " << endl;
+	cout << "   ██║   ██╔══██║██╔══╝     ██║   ██╔══╝   ██╔██╗    ██║   ██╔══██╗██╔═══╝ ██║   ██║╚════╝██╔══██║██╔══██║██╔══██╗██║  ██║██║     ██║   ██║██╔══██╗██╔══╝ ╚════╝ ██║  ██║██╔══╝  " << endl;
+	cout << "   ██║   ██║  ██║███████╗   ██║   ███████╗██╔╝ ██╗   ██║   ██║  ██║██║     ╚██████╔╝      ██║  ██║██║  ██║██║  ██║██████╔╝╚██████╗╚██████╔╝██║  ██║███████╗      ██████╔╝███████╗" << endl;
+	cout << "   ╚═╝   ╚═╝  ╚═╝╚══════╝   ╚═╝   ╚══════╝╚═╝  ╚═╝   ╚═╝   ╚═╝  ╚═╝╚═╝      ╚═════╝       ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═════╝  ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝      ╚═════╝ ╚══════╝" << endl;
 
 
 	system("pause");
@@ -187,17 +189,14 @@ int main() {
 	playerExp = playerExp + 4;
 	coins = coins +10;
 
-	if(playerExp > 30){
-		playerExp = playerExp -30;
-		playerLPmax = playerLPmax + 3;
-		playerLVL = playerLVL + 1;
-		cout << "!!!Levle Up!!!" << endl << "Levle: " << playerLVL << endl << "Max LP ist jetzt " << playerLPmax << endl;
-	}
+	int playerLPmax, playerLVL = exp();
+	int maxexp, playerExp = exp();
 	cout << "Du hast " << playerExp << " Exp" << endl;
 	cout << "Du hast " << coins << " Münzen" << endl;
 	playerLP = playerLPmax;
 	system("pause");
 
+	exp();
 
 	clear();
 
@@ -240,7 +239,7 @@ int main() {
 		case 2:
 			coins = coins +15;
 			cout << "Du hast " << coins << " Münzen" << endl;
-			cout << "Du hast ein Zauberbuch mit einem Eisstachel Zauber [5 Schaden]" << endl;
+			cout << "Du hast ein Zauberbuch mit einem Eisstachel Zauber [6 Schaden]" << endl;
 			isQuest = true;
 			break;
 		default:
@@ -254,27 +253,27 @@ int main() {
 		switch(roll){
 		case 1:
 			waffe = "Eisstachel Zauber [5 Schaden]";
-			waffeInfo = 5;
+			waffeInfo = 6;
 			rolleSchaden = 0;
 			break;
 		case 2:
 			waffe = "Eisstachel Zauber [5 Schaden]";
-			waffeInfo = 5;
+			waffeInfo = 6;
 			rolleSchaden = 0;
 			break;
 		case 3:
 			waffe = "Eisstachel Zauber [5 Schaden]";
-			waffeInfo = 5;
+			waffeInfo = 6;
 			rolleSchaden = 0;
 			break;
 		case 4:
 			waffe = "Eisstachel Zauber [5 Schaden]";
-			waffeInfo = 5;
+			waffeInfo = 6;
 			rolleSchaden = 3;
 			break;
 		case 5:
 			waffe = "Eisstachel Zauber [5 Schaden]";
-			waffeInfo = 5;
+			waffeInfo = 6;
 			rolleSchaden = 0;
 			break;
 		}
@@ -294,6 +293,9 @@ int main() {
 	clear();
 
 	cout << "Max: Hallo " << name << ", dass sind meine Waren:" << endl;
+
+	cout << "Du hast " << coins << " Münzen." << endl;
+
 	cout << "1.Kohle Schwert [5 Schaden][10 Münzen]" << endl;
 	cout << "2.Kohle Dolch [5 Schaden][10 Münzen]" << endl;
 	cout << "3.Kohleschleuder [5 Schaden][10 Münzen]" << endl;
@@ -308,8 +310,8 @@ int main() {
 			coins = coins - 10;
 			switch(roll){
 			case 1:
-				waffe = "Kohle Schwert [5 Schaden]";
-				waffeInfo = 5;
+				waffe = "Kohle Schwert [4 Schaden]";
+				waffeInfo = 4;
 				rolleSchaden = 3;
 				break;
 			case 2:
@@ -452,6 +454,13 @@ int main() {
 	system("pause");
 
 	clear();
+
+	cout << "Tippe (nw) um zum schloss zu gehen oder was anderes um selber zu erkunden" << endl;
+	cin >> input;
+
+	if(input == "nw"){
+
+	}
 
 	return 0;
 }
